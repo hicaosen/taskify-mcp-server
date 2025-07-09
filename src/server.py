@@ -6,7 +6,7 @@ mcp = FastMCP("taskify")
 
 
 @mcp.tool()
-def instruct_coding_agent() -> str:
+def instruct_coding_agent(agent_prompt: str) -> str:
     """
     This tool serves as a capability declaration for instructing a programming agent.
     Its value lies entirely in this documentation, which provides a mental framework
