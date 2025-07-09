@@ -6,56 +6,66 @@ mcp = FastMCP("taskify")
 
 
 @mcp.tool()
-def instruct_coding_agent(agent_prompt: str) -> str:
+def instruct_coding_agent() -> str:
     """
-    This tool serves as a capability declaration for instructing a programming agent.
-    Its value lies entirely in this documentation, which provides a mental framework
-    for the calling model on how to construct a high-quality `agent_prompt`.
+    启发式编程指令构建工具
+    
+    这个工具的价值完全在于为你提供一个深度思考的框架。调用它意味着你已经
+    准备好基于启发式思维来构建高质量的编程指令。
 
-    **## Core Philosophy: A Framework for Thought, Not a Rigid Template ##**
+    ## 🧠 核心哲学：授人以渔的智慧框架
 
-    The calling model (you, the assistant) is responsible for all reasoning. You must
-    autonomously adapt the detail and structure of the `agent_prompt` based on the
-    context and complexity of the user's request. A simple request demands a simple
-    instruction; a complex request requires a detailed blueprint. Do not rigidly
-    apply a verbose structure to a simple problem.
+    你不是一个指令的"搬运工"，而是一个优秀的"任务分析师"。你的使命是
+    理解用户的真实需求，然后将其转化为编程代理能够准确执行的清晰指令。
 
-    **## Recommended Reasoning Process for the Calling Model ##**
+    ## 🔍 启发式思维流程
 
-    Before calling this tool, you should follow this thought process:
+    ### 第一层：本质洞察
+    - 用户真正想要解决什么问题？（透过表象看本质）
+    - 这个需求背后的业务逻辑是什么？
+    - 有哪些隐含的约束、期望和假设？
+    - 什么情况下用户会认为任务"成功完成"？
 
-    **1. Assess Complexity & Intent:**
-    - First, deeply analyze the user's request. Is it a simple, self-contained task
-      (e.g., "write a function to add two numbers"), or a complex, multi-component
-      system (e.g., "build a task management API")?
-    - What is the user's true underlying intent?
+    ### 第二层：复杂度评估  
+    - 这是一个"点"任务（修改函数）还是"线"任务（新增模块）还是"面"任务（架构重构）？
+    - 编程代理需要多少上下文才能自信地开始工作？
+    - 这个任务的风险点和容易出错的地方在哪里？
+    - 如果是现有项目，需要了解哪些现有的模式和约束？
 
-    **2. Select an Appropriate Level of Detail:**
-    - **For simple requests:** A direct, concise instruction is best. For example:
-      `"Write a Python function named 'add' that takes two integers and returns their sum."`
-    - **For complex requests:** A more structured approach is necessary to guide the
-      coding agent effectively. In this case, consider generating a prompt that includes
-      some of the following sections, as needed.
+    ### 第三层：指令设计
+    - 如何平衡指令的详细程度？（过详细=剥夺代理的判断力，过简略=方向不明）
+    - 代理需要什么信息才能做出正确的技术选择？
+    - 如何让代理明白"何时停止"和"成功标准"？
+    - 如何确保代理理解变更的影响范围？
 
-    **3. (For Complex Requests) Key Sections to Consider:**
-    - **Inferred Application Type & Tech Stack:** Briefly state the most logical type of
-      application (e.g., Web API, CLI Tool) and a recommended technology stack
-      (e.g., FastAPI, argparse). This sets a clear direction.
-    - **Core Logic or Feature Breakdown:** Deconstruct the request into a list of
-      specific, actionable features, functions, or classes to be implemented.
-    - **Key Data Structures:** If applicable, define the essential data models or objects.
-    - **Critical Constraints:** Mention any important constraints or non-negotiable
-      requirements (e.g., "must not use external libraries", "must run on Python 3.8").
+    ## 💡 自适应原则
 
-    **## Final Goal ##**
-    Your goal is to generate the most effective and efficient `agent_prompt` possible.
-    Efficiency means not over-engineering the instruction for a simple task. Effectiveness
-    means providing sufficient detail for a complex task. This tool simply registers
-    your final, reasoned instruction.
+    **简单任务**：直接、明确的指令
+    示例："将 user_service.py 中的 get_user 函数改为异步版本，保持接口不变"
+
+    **复杂任务**：结构化的指导，但保持方法灵活
+    示例：说明目标、约束、关键考虑点，但让代理选择具体实现路径
+
+    **碎片化任务**：提供足够的上下文和边界
+    示例：错误修复时，说明症状、影响范围、现有架构约束
+
+    ## 🎯 质量检验
+
+    构建指令后，进行角色转换思考：
+    - 🤖 "如果我是编程代理，我能立即开始并自信地完成这个任务吗？"
+    - 🎯 "我清楚知道成功的标准和边界条件吗？"  
+    - 🔧 "我有合适的自由度选择最佳的实现方式吗？"
+    - ⚡ "我理解了这个变更可能带来的影响吗？"
+
+    ## 🌟 终极目标
+
+    培养编程代理的判断力和执行力，而不是把它变成一个机械的代码生成器。
+    你的指令应该像一个经验丰富的技术leader给出的任务分配：清晰的目标、
+    必要的上下文、合理的约束，但保留足够的专业空间让代理发挥其技术能力。
+
+    记住：最好的指令是那些让代理既有方向感又有成就感的指令。
     """
-    # This tool's implementation is intentionally trivial.
-    # It trusts the calling model to have performed the necessary reasoning.
-    return "Agent instruction registered. The programming agent can now proceed with the provided prompt."
+    return "启发式思维框架已激活。请基于深度分析构建你的编程指令。"
 
 
 
