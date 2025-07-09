@@ -6,85 +6,57 @@ mcp = FastMCP("taskify")
 
 
 @mcp.tool()
-def analyze_and_refine_requirement(high_level_requirement: str) -> str:
+def instruct_coding_agent() -> str:
     """
-    Analyzes a high-level user requirement, infers the user's intent, and expands it
-    into a detailed, structured specification using the model's analytical capabilities.
+    This tool serves as a capability declaration for instructing a programming agent.
+    Its value lies entirely in this documentation, which provides a mental framework
+    for the calling model on how to construct a high-quality `agent_prompt`.
 
-    This tool minimizes user clarification by proactively generating a comprehensive
-    plan, including inferred problems, user personas, functional and non-functional
-    requirements, and success metrics.
+    **## Core Philosophy: A Framework for Thought, Not a Rigid Template ##**
 
-    :param high_level_requirement: A string describing the user's high-level goal.
-    :return: A detailed specification in Markdown format.
+    The calling model (you, the assistant) is responsible for all reasoning. You must
+    autonomously adapt the detail and structure of the `agent_prompt` based on the
+    context and complexity of the user's request. A simple request demands a simple
+    instruction; a complex request requires a detailed blueprint. Do not rigidly
+    apply a verbose structure to a simple problem.
+
+    **## Recommended Reasoning Process for the Calling Model ##**
+
+    Before calling this tool, you should follow this thought process:
+
+    **1. Assess Complexity & Intent:**
+    - First, deeply analyze the user's request. Is it a simple, self-contained task
+      (e.g., "write a function to add two numbers"), or a complex, multi-component
+      system (e.g., "build a task management API")?
+    - What is the user's true underlying intent?
+
+    **2. Select an Appropriate Level of Detail:**
+    - **For simple requests:** A direct, concise instruction is best. For example:
+      `"Write a Python function named 'add' that takes two integers and returns their sum."`
+    - **For complex requests:** A more structured approach is necessary to guide the
+      coding agent effectively. In this case, consider generating a prompt that includes
+      some of the following sections, as needed.
+
+    **3. (For Complex Requests) Key Sections to Consider:**
+    - **Inferred Application Type & Tech Stack:** Briefly state the most logical type of
+      application (e.g., Web API, CLI Tool) and a recommended technology stack
+      (e.g., FastAPI, argparse). This sets a clear direction.
+    - **Core Logic or Feature Breakdown:** Deconstruct the request into a list of
+      specific, actionable features, functions, or classes to be implemented.
+    - **Key Data Structures:** If applicable, define the essential data models or objects.
+    - **Critical Constraints:** Mention any important constraints or non-negotiable
+      requirements (e.g., "must not use external libraries", "must run on Python 3.8").
+
+    **## Final Goal ##**
+    Your goal is to generate the most effective and efficient `agent_prompt` possible.
+    Efficiency means not over-engineering the instruction for a simple task. Effectiveness
+    means providing sufficient detail for a complex task. This tool simply registers
+    your final, reasoned instruction.
     """
+    # This tool's implementation is intentionally trivial.
+    # It trusts the calling model to have performed the necessary reasoning.
+    return "Agent instruction registered. The programming agent can now proceed with the provided prompt."
 
-    # This is a placeholder for the core logic where the model would
-    # perform a deep analysis of the high_level_requirement.
-    # In a real scenario, this would involve a complex internal prompt
-    # and reasoning process.
-
-    # For demonstration, we will simulate this analysis by generating
-    # a structured document based on a template.
-
-    # --- Start of Simulated Analysis ---
-    inferred_problem = "The user likely wants to automate a repetitive, manual process that is prone to errors and consumes significant time."
-    proposed_persona = "A business analyst or project manager who needs to track tasks and progress but lacks a dedicated, easy-to-use tool."
-    functional_reqs = """
-- **Task Creation**: Ability to create new tasks with a title, description, assignee, and due date.
-- **Status Tracking**: Tasks should have statuses (e.g., To-Do, In Progress, Done).
-- **Dashboard View**: A main dashboard to view all tasks, with filtering and sorting capabilities.
-- **Notifications**: Users should be notified of upcoming deadlines or when a task is assigned to them.
-"""
-    non_functional_reqs = """
-- **Usability**: The interface must be intuitive and require minimal training.
-- **Performance**: The dashboard should load in under 2 seconds with up to 1,000 tasks.
-- **Security**: User data must be secure, and only authorized users can view or edit tasks.
-"""
-    success_metrics = "- Reduction in time spent on manual task tracking by 50%\n- 90% of users actively using the tool daily within one month of launch."
-    risks = "- **Scope Creep**: The feature could become overly complex if too many nice-to-have features are added.\n- **Integration**: If this tool needs to integrate with other systems, the complexity will increase significantly."
-    # --- End of Simulated Analysis ---
-
-    detailed_spec = f"""
-# AI-Generated Detailed Requirement Specification
-
-Based on the high-level requirement: "{high_level_requirement}", the following detailed specification has been generated through analysis.
-
-## 1. Inferred Core Problem & Value
-- **Problem Statement**: {inferred_problem}
-- **Proposed Value**: To provide a simple, centralized, and efficient way to manage tasks, leading to increased productivity and reduced errors.
-
-## 2. Proposed User Persona
-- **Primary User**: {proposed_persona}
-
-## 3. Functional Requirements (Features)
-{functional_reqs}
-
-## 4. Non-Functional Requirements
-{non_functional_reqs}
-
-## 5. Proposed Success Metrics
-{success_metrics}
-
-## 6. Potential Risks & Considerations
-{risks}
-
----
-*This document was auto-generated by an AI assistant. Please review and refine with your team.*
-"""
-    return detailed_spec
-
-
-
-@mcp.tool()
-def save_spec_to_file(filename: str, content: str) -> str:
-    """Saves the detailed specification to a markdown file."""
-    try:
-        with open(filename, "w", encoding="utf-8") as f:
-            f.write(content)
-        return f"Specification saved to {filename}"
-    except IOError as e:
-        return f"Error saving file: {e}"
 
 
 def main():
