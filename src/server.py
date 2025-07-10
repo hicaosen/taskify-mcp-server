@@ -1773,28 +1773,28 @@ def generate_sample_tool_calls(user_request: str, project_context: str, workflow
     if "guided_thinking_process" in str(workflow["sequence"]):
         samples["step2_understand"] = {
             "tool": "guided_thinking_process", 
-            "call": 'guided_thinking_process(task_analysis_json, "understanding")',
+            "call": 'guided_thinking_process(session_id, "understanding")',
             "purpose": "深入理解阶段的思考指导",
-            "note": "task_analysis_json 是第一步返回的完整JSON结果"
+            "note": "session_id 是第一步返回的会话ID"
         }
         
         samples["step3_plan"] = {
             "tool": "guided_thinking_process",
-            "call": 'guided_thinking_process(task_analysis_json, "planning")', 
+            "call": 'guided_thinking_process(session_id, "planning")', 
             "purpose": "规划阶段的思考指导"
         }
         
         samples["step4_implement"] = {
             "tool": "guided_thinking_process",
-            "call": 'guided_thinking_process(task_analysis_json, "implementation")',
+            "call": 'guided_thinking_process(session_id, "implementation")',
             "purpose": "实现阶段的思考指导"
         }
     
     # 最后：质量验证
     samples["final_validate"] = {
         "tool": "validate_instruction_quality",
-        "call": 'validate_instruction_quality("your_final_instruction")',
-        "purpose": "验证最终编程指令的质量"
+        "call": 'validate_instruction_quality("your_final_instruction", session_id)',
+        "purpose": "验证最终编程指令的质量（支持上下文感知）"
     }
     
     return samples
@@ -1806,7 +1806,7 @@ def generate_usage_tips(complexity: str, mode: str) -> list:
     base_tips = [
         "每次工具调用后，仔细阅读返回结果再进行下一步",
         "思考过程要充分，不要急于得出结论",
-        "将工具返回的JSON结果完整传递给下一个工具"
+        "保存session_id并在后续工具中使用，享受V2.0的简化体验"
     ]
     
     complexity_tips = {
