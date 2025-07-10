@@ -1,7 +1,7 @@
 [project]
 name = "taskify-mcp-server"
-version = "0.1.3"
-description = ""
+version = "v2.0"
+description = "Advanced MCP server with intelligent programming thinking guidance, session management, and learning capabilities"
 authors = [
     {name = "GeeseDream",email = "GeeseDream@aliyun.com"}
 ]
