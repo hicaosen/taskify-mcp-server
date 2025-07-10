@@ -1,9 +1,9 @@
 [project]
-name = "taskify"
+name = "taskify-mcp-server"
 version = "0.1.0"
 description = ""
 authors = [
-    {name = "hicaosen",email = "cscg52@qq.com"}
+    {name = "GeeseDream",email = "GeeseDream@aliyun.com"}
 ]
 readme = "README.md"
 requires-python = ">=3.12"
@@ -13,7 +13,7 @@ dependencies = [
 
 
 [project.scripts]
-taskify = "server:main"
+taskify-mcp-server = "server:main"
 
 [tool.poetry]
 packages = [
